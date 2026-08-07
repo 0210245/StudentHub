@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#8d8d8d;
+    color:#333;
+    line-height:1.6;
+}
+
+header{
+    background:#7ae847;
+    color:white;
+    padding:18px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+header h1{
+    font-size:30px;
+}
+
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:6px;
+    transition:.3s;
+    font-size:15px;
+}
+
+nav a:hover{
+    background:white;
+    color:#7ae847;
+}
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:40px auto;
+}
+
+.hero{
+    text-align:center;
+    background:linear-gradient(135deg,#7ae847);
+    color:white;
+    padding:70px 20px;
+    border-radius:15px;
+    margin-bottom:40px;
+}
+
+.hero h2,
+.hero h1{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card h2,
+.card h3{
+    color:#7ae847;
+    margin-bottom:15px;
+}
+
+.card ul{
+    padding-left:20px;
+}
+
+.card li{
+    margin:10px 0;
+}
+
+
+form{
+    background:white;
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+form h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#7ae847;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:6px;
+    font-weight:500;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#7ae847;
+    box-shadow:0 0 6px rgba(13,110,253,.3);
+}
+
+/* Buttons */
+
+button,
+.btn{
+    display:inline-block;
+    width:100%;
+    margin-top:25px;
+    padding:13px;
+    background:#7ae847;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+    text-decoration:none;
+}
+
+button:hover,
+.btn:hover{
+    background:#7ae847;
+}
+
+/* Footer */
+
+footer{
+    margin-top:50px;
+    background:#212529;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* Lists */
+
+ul,
+ol{
+    margin-left:25px;
+}
+
+/* Links inside forms */
+
+form p{
+    text-align:center;
+    margin-top:20px;
+}
+
+form a{
+    color:#7ae847;
+    text-decoration:none;
+}
+
+form a:hover{
+    text-decoration:underline;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+header{
+    flex-direction:column;
+}
+
+nav{
+    justify-content:center;
+    margin-top:15px;
+}
+
+.hero h1,
+.hero h2{
+    font-size:30px;
+}
+
+form{
+    width:95%;
+}
+
+}
+.Profile{
+    background:#7ae847;
+    color:white;
+    justify-content: center;
+}
+.main_container{
+    min-height: calc(100vh - 160px); /* Adjust if your header/footer heights differ */
+    display: flex;
+    justify-content: center;   /* Horizontal center */
+    align-items: center;       /* Vertical center */
+    background: #b3b3b3;
+}
+.card{
+    width: 700px;
+    height: 500px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card input{
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.image-section img{
+    height: auto;
+    width: 50px;
+}
+
+.Events {
+    background-color: white;
+    height:auto;
+    width: 400px;
+    justify-content: center;
+    border-radius: 5%;
+}
+
+
