@@ -222,45 +222,6 @@ nav{
 form{
     width:95%;
 }
-
-}
-.Profile{
-    background:#7ae847;
-    color:white;
-    justify-content: center;
-}
-.main_container{
-    min-height: calc(100vh - 160px); /* Adjust if your header/footer heights differ */
-    display: flex;
-    justify-content: center;   /* Horizontal center */
-    align-items: center;       /* Vertical center */
-    background: #b3b3b3;
-}
-.card{
-    width: 700px;
-    height: 500px;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.card form{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.card input{
-    padding: 12px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.image-section img{
-    height: auto;
-    width: 50px;
 }
 
 .Events {
@@ -271,4 +232,22 @@ form{
     border-radius: 5%;
 }
 
+.profile-card {
+    width: 700px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+}
 
+.profile-photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.contact-card{
+    color:white;    
+}
