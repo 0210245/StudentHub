@@ -231,3 +231,43 @@ form{
 .contact-card{
     color:white;    
 }
+.cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.cards .card {
+    flex: 1;
+    text-align: center;
+}
+.cards .card h2 {
+    color: #7ae847;
+    font-size: 30px;
+}
+.events-section {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+}
+.events-section h3 {
+    color: #7ae847;
+    margin-bottom: 20px;
+}
+.events-section li {
+    margin: 20px 0;
+}
+.event-register {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 8px 15px;
+    background: #7ae847;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+.event-register:hover {
+    background: #5fc72f;
+}
