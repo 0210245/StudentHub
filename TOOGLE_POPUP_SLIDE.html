@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle_popup_slide</title>
+
+    <style>
+        .slide{
+            min-width: 100%; box-sizing: border-box; padding: 20px; background: #ddd; text-align:center;
+        }
+        .controls{margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <h2>FAQs</h2>
+    <div class="faq" onclick="toggleAnswer(0)">What is this portal?</div>
+    <div class="answer">This portal helps users interact with various UI elements dynamically.</div>
+    <div class="faq" onclick="toggleAnswer(1)">How to use slider?</div>
+    <div class="answer">Use the buttons below the slider to view different slides.</div>
+
+    <h2>PopUp Example</h2>
+    <button onclick="showPopup()">Show Popup</button>
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="Popup" id="group">
+        <p>This is a group message!</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <script>
+        function toogleAnswer(index){
+            const answers = document.querySelectorAll('.answer');
+            answers[index].style.display=answer[index].style.display === 'block' ? 'none': 'black';
+        }
+        function showPopup(){
+            document.getElementById('Popup').style.display=showPopup();
+        }
+    </script>
+</body>
+</html>
