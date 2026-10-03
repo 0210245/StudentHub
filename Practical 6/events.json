@@ -1,0 +1,31 @@
+{
+    "University":"Charusat University",
+    "College name":"CSPIT",
+    "events":[{
+        "id":1,
+        "title": "Annual Computer Science Hackathon",
+        "category": "Tech",
+        "description": "A 24-hour coding challenge for students to build innovative apps.",
+        "start_date": "2026-10-15",
+        "end_date": "2026-10-16",
+        "location": "Hall",
+        "organizer": "Department of Computer Engineering",
+        "capacity": 200,
+        "registration_required": true
+    },
+    {
+      "id": 102,
+      "title": "Guest Lecture: Modern Era Whether forecasting",
+      "category": "Seminar",
+      "description": "Dr. Jane Doe discusses recent breakthroughs in solar grid tech.",
+      "start_date": "2026-10-18",
+      "end_date": "2026-10-18",
+      "location": "Building A6, Room 102",
+      "organizer": "Department of Computer Engineering",
+      "capacity": 75,
+      "registration_required": false
+    }
+  ]
+}
+
+

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register For Events</title>
     <link rel="stylesheet" href="../StudentHub-css.css">
+    <link rel="stylesheet" href="../interactive-features.css">
 </head>
 
 <body>
@@ -24,26 +25,35 @@
         <a href="Admin-Dashboard.html">Admin</a>
     </nav>
 <main class="Register">
-    <form>
+    <form action="Event.php">
         <h2>Register For Event</h2>
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name">
+        <label for="Eent_ID">Event_ID</label>
+        <input type="text" id="Event_ID" name="Event_ID" placeholder="Enter Event_ID"><br><br>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <label for="Event_Name">Email</label>
+        <input type="text" id="Event_Name" name="Event_Name" placeholder="Enter Event_Name"><br><br>
 
-        <label for="event">Select Event</label>
-        <select id="event" name="event">
+        <label for="Event_Date">Event Date</label>
+        <input type="date" id="Event_Date" name="Event_Date"><br><br>
+
+        <label for="Event_Venue">Event venue</label>
+        <input type="text" id="Event_Venue" name="Event_Venue" placeholder="Enter the venue"><br><br>
+
+        <label for="Event_type">Select Event</label>
+        <select id="Event_type" name="Event_Type">
             <option value="">Select an event</option>
             <option value="tech">Technical Event</option>
             <option value="cultural">Cultural Event</option>
             <option value="sports">Sports Event</option>
             <option value="workshop">Workshop</option>
-        </select>
-        <label for="student-id">Student ID</label>
-        <input type="text" id="student-id" name="student-id" placeholder="Enter your student ID">
+        </select><br><br>
+
+        <label for="Event_coordinator">Event Coordinator</label>
+        <input type="text" name="Event_coordinator" id="Event_coordinator" placeholder="Enter the name of the Event coordinator"><br><br>
+        
         <button type="submit">Register</button>
     </form>
 </main>
+<script src="../StudentHub-js.js" defer></script>
 </body>
 </html>

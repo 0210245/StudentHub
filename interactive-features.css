@@ -1,0 +1,272 @@
+/* =========================================================
+   interactive-features.css
+   Practical 4: styling for hamburger menu, theme switcher,
+   notification banner, FAQ accordion, modal popup and slider.
+   Loaded on every page alongside the existing stylesheet.
+   ========================================================= */
+
+/* ---- Hamburger Menu ---- */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 20;
+}
+.hamburger-btn span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #e2df06;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+.hamburger-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger-btn.active span:nth-child(2) { opacity: 0; }
+.hamburger-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+    .hamburger-btn { display: flex; }
+    header nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    header nav.nav-open { display: flex; }
+}
+
+/* ---- Theme Toggle ---- */
+.theme-toggle-btn {
+    background: transparent;
+    border: 2px solid #e2df06;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 12px;
+    flex-shrink: 0;
+}
+
+body[data-theme="dark"] {
+    background: #14151a;
+    color: #eaeaea;
+}
+body[data-theme="dark"] header,
+body[data-theme="dark"] .card,
+body[data-theme="dark"] form,
+body[data-theme="dark"] .contact-card,
+body[data-theme="dark"] .profile-card,
+body[data-theme="dark"] .events-section,
+body[data-theme="dark"] .hero,
+body[data-theme="dark"] .modal-box,
+body[data-theme="dark"] .slider-slide,
+body[data-theme="dark"] .slider-dots,
+body[data-theme="dark"] main section:first-child,
+body[data-theme="dark"] main section:nth-child(3) {
+    background: #1f2026;
+    color: #eaeaea;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+body[data-theme="dark"] input,
+body[data-theme="dark"] textarea,
+body[data-theme="dark"] select {
+    background: #2a2b33;
+    color: #eaeaea;
+    border-color: #444;
+}
+body[data-theme="dark"] .card p,
+body[data-theme="dark"] .faq-answer p,
+body[data-theme="dark"] main section:first-child p,
+body[data-theme="dark"] main section:nth-child(3) p {
+    color: #cfcfcf;
+}
+body[data-theme="dark"] .faq-question {
+    color: #eaeaea;
+}
+body[data-theme="dark"] footer,
+body[data-theme="dark"] .footer {
+    background: #3a3906;
+}
+
+/* ---- Notification Banner ---- */
+.notification-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background: #333;
+    color: #fff;
+    padding: 12px 45px;
+    text-align: center;
+    font-size: 14px;
+    position: relative;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.notification-banner.hide {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+.notification-banner .banner-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+}
+
+/* ---- FAQ Accordion ---- */
+.faq-item {
+    border-bottom: 1px solid #eee;
+}
+.faq-item:last-child {
+    border-bottom: none;
+}
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 16px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #222;
+}
+.faq-question::after {
+    content: '+';
+    font-size: 22px;
+    color: #e2df06;
+    transition: transform 0.3s;
+    margin-left: 10px;
+}
+.faq-item.open .faq-question::after {
+    transform: rotate(45deg);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 5px;
+}
+.faq-answer p {
+    padding-bottom: 16px;
+    color: #555;
+}
+
+/* ---- Modal Popup ---- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+.modal-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+.modal-box h2 {
+    color: #e2df06;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ---- Slider ---- */
+.slider {
+    position: relative;
+    max-width: 800px;
+    margin: 30px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+.slider-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 40px 30px;
+    background: #fff;
+    text-align: center;
+}
+.slider-slide h4 {
+    color: #e2df06;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.slider-slide p {
+    color: #555;
+}
+.slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(226,223,6,0.9);
+    color: #fff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+.slider-prev { left: 10px; }
+.slider-next { right: 10px; }
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 0;
+    background: #fff;
+}
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    padding: 0;
+}
+.slider-dot.active {
+    background: #e2df06;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile</title>
     <link rel="stylesheet" href="../StudentHub-css.css">
+    <link rel="stylesheet" href="../interactive-features.css">
 </head>
 <body>
 <header>
@@ -45,11 +46,39 @@
             <li>Web development certificate</li>
         </ol>
     </div>
-    <button class="edit-btn">Edit Profile</button>
+    <button class="edit-btn" type="button" data-modal-open>Edit Profile</button>
+</div>
+
+<div class="modal-overlay">
+    <div class="modal-box">
+        <button type="button" class="modal-close" aria-label="Close">&times;</button>
+        <h2>Edit Profile</h2>
+        <form>
+            <label for="edit-name">Full Name</label>
+            <input type="text" id="edit-name" value="Radhika">
+
+            <label for="edit-course">Course</label>
+            <input type="text" id="edit-course" value="B.tech">
+
+            <label for="edit-dept">Department</label>
+            <input type="text" id="edit-dept" value="Computer Engineering">
+
+            <label for="edit-year">Year</label>
+            <select id="edit-year">
+                <option>1st Year</option>
+                <option selected>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+            </select>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
 </div>
 
 <footer>
      <p>&copy; 2026 StudentHub. All rights reserved.</p>
 </footer>
+    <script src="../StudentHub-js.js" defer></script>
 </body>
 </html>

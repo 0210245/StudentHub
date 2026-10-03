@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
     <link rel="stylesheet" href="../StudentHub-css.css">
+    <link rel="stylesheet" href="../interactive-features.css">
 </head>
 <body>
 
@@ -25,6 +26,29 @@
     </nav>
 </header>
 
+<section class="container" aria-labelledby="highlights-heading">
+    <h3 id="highlights-heading" style="text-align:center; color:#e2df06; margin-bottom:10px;">Event Highlights</h3>
+    <div class="slider">
+        <div class="slider-track">
+            <div class="slider-slide">
+                <h4>Cultural Fest 2026</h4>
+                <p>12 Sep 2026 &mdash; A celebration of music, dance and art across campus. Open to all students.</p>
+            </div>
+            <div class="slider-slide">
+                <h4>Hackathon</h4>
+                <p>15 Sep 2026 &mdash; Build something amazing in 24 hours and compete for exciting prizes.</p>
+            </div>
+            <div class="slider-slide">
+                <h4>Workshop on Web Development</h4>
+                <p>20 Sep 2026 &mdash; Hands-on session covering HTML, CSS and JavaScript fundamentals.</p>
+            </div>
+        </div>
+        <button type="button" class="slider-prev" aria-label="Previous slide">&#8249;</button>
+        <button type="button" class="slider-next" aria-label="Next slide">&#8250;</button>
+        <div class="slider-dots"></div>
+    </div>
+</section>
+
 <section class="events-section" aria-labelledby="upcoming-events-heading">
     <h3 id="upcoming-events-heading">Upcoming Events</h3>
     <ol>
@@ -42,5 +66,8 @@
         </li>
     </ol>
 </section>
+
+<footer><p>&copy; 2026 StudentHub</p></footer>
+    <script src="../StudentHub-js.js" defer></script>
 </body>
 </html>

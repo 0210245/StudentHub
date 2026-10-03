@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+</head>
+<body>
+
+<h2>Student Registration Form</h2>
+
+<form action="process.php" method="POST">
+
+    <label>Name:</label>
+    <input type="text" name="name" required>
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    <br><br>
+
+    <label>Mobile:</label>
+    <input type="text" name="mobile" required>
+    <br><br>
+
+    <label>Course:</label>
+    <select name="course" required>
+        <option value="">Select Course</option>
+        <option value="BCA">BCA</option>
+        <option value="B.Tech">B.Tech</option>
+        <option value="MCA">MCA</option>
+        <option value="M.Tech">M.Tech</option>
+    </select>
+    <br><br>
+
+    <label>Year:</label>
+    <select name="year" required>
+        <option value="">Select Year</option>
+        <option value="1st Year">1st Year</option>
+        <option value="2nd Year">2nd Year</option>
+        <option value="3rd Year">3rd Year</option>
+        <option value="4th Year">4th Year</option>
+    </select>
+    <br><br>
+
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="Male" required> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <input type="radio" name="gender" value="Other"> Other
+    <br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+
+</body>
+</html>
