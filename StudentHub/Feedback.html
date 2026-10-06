@@ -11,36 +11,35 @@
 <body>
     <header>
     <h1>StudentHub</h1>
-        <nav>
-
-            <a href="../index.html">Home</a>
-            <a href="AboutUs.html">About</a>
-            <a href="Login.html">Login</a>
-            <a href="events.html">Events</a>
-            <a href="Profile.html">Profile</a>
-            <a href="Contact.html">Contact</a>
-            <a href="Register.html">Register</a>
-            <a href="Faq.html">FAQ</a>
-            <a href="Feedback.html" class="active" aria-current="page">Feedback</a>
-            <a href="Admin-Dashboard.html">Admin</a>
-
-        </nav>
+        <nav aria-label="Main Navigation">
+        <a href="../index.html">Home</a>
+        <a href="AboutUs.html">About</a>
+        <a href="Login.html">Login</a>
+        <a href="events.html">Events</a>
+        <a href="Profile.html">Profile</a>
+        <a href="Contact.html">Contact</a>
+        <a href="Register.html">Register</a>
+        <a href="Faq.html">FAQ</a>
+        <a href="Feedback.html">Feedback</a>
+        <a href="Admin-Dashboard.html">Admin</a>
+</nav>
     </header>
 
 <main class="container">
-    <form>
+    <form action="feedback.php" method="post">
     <h2>Student Feedback</h2>
-    <label>Name</label>
-    <input type="text" placeholder="Enter your name">
 
-    <label>Email</label>
-    <input type="email" placeholder="Enter your email">
+    <label for="fb-name">Name</label>
+    <input type="text" id="fb-name" name="name" placeholder="Enter your name" required>
 
-    <label>Feedback</label>
-    <textarea rows="6" placeholder="Write your feedback"></textarea>
+    <label for="fb-email">Email</label>
+    <input type="email" id="fb-email" name="email" placeholder="Enter your email" required>
 
-    <button>Submit Feedback</button>
-    </form>
+    <label for="fb-message">Feedback</label>
+    <textarea id="fb-message" name="message" rows="6" placeholder="Write your feedback" required></textarea>
+
+    <button type="submit">Submit Feedback</button>
+</form>
 </main>
 
 <footer><p>&copy; 2026 StudentHub</p></footer>

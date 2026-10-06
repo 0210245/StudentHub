@@ -11,36 +11,34 @@
   <header>
     <h1>StudentHub</h1>
     <nav aria-label="Main Navigation">
-      <a href="../index.html">Home</a>
-      <a href="AboutUs.html">About</a>
-      <a href="Login.html">Login</a>
-      <a href="events.html">Events</a>
-      <a href="Profile.html">Profile</a>
-      <a href="Contact.html" class="active" aria-current="page">Contact</a>
-      <a href="Register.html">Register</a>
-      <a href="Faq.html">FAQ</a>
-      <a href="Feedback.html">Feedback</a>
-      <a href="Admin-Dashboard.html">Admin</a>
-    </nav>
+    <a href="../index.html">Home</a>
+    <a href="AboutUs.html">About</a>
+    <a href="Login.html">Login</a>
+    <a href="events.html">Events</a>
+    <a href="Profile.html">Profile</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Register.html">Register</a>
+    <a href="Faq.html">FAQ</a>
+    <a href="Feedback.html">Feedback</a>
+    <a href="Admin-Dashboard.html">Admin</a>
+</nav>
   </header>
-
   <main>
-    <section class="hero">
-      <h2>Get in Touch</h2>
-      <p>Have questions? Reach out to us directly or drop by our office.</p>
-    </section>
+    <section class="container">
+    <form>
+        <h3>Send a Message</h3>
+        <label for="c-name">Name</label>
+        <input type="text" id="c-name" name="name" required>
 
-    <section class="container contact-methods">
-      <div class="contact-card">
-        <h3>Direct Channels</h3>
-        <p><strong>Email Us:</strong> <a href="mailto:support@studenthub.edu">support@studenthub.edu</a></p>
-      </div>
+        <label for="c-email">Email</label>
+        <input type="email" id="c-email" name="email" required>
 
-      <div class="contact-card">
-        <h3>Visit & Community</h3>
-        <p><strong>Student Center:</strong> Room 302, Main Campus Building</p>
-      </div>
-    </section>
+        <label for="c-msg">Message</label>
+        <textarea id="c-msg" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send</button>
+    </form>
+</section>
   </main>
 
   <footer>

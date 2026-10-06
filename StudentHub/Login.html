@@ -5,54 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudentHub | Login</title>
 <link rel="stylesheet" href="../StudentHub-css.css">
-    <link rel="stylesheet" href="../interactive-features.css">
+<link rel="stylesheet" href="../interactive-features.css">
 </head>
 
 <body>
 <header>
     <h1>StudentHub</h1>
     <nav aria-label="Main Navigation">
-        <a href="../index.html">Home</a>
-        <a href="AboutUs.html">About</a>
-        <a href="Login.html" class="active" aria-current="page">Login</a>
-        <a href="events.html">Events</a>
-        <a href="Profile.html">Profile</a>
-        <a href="Contact.html">Contact</a>
-        <a href="Register.html">Register</a>
-        <a href="Faq.html">FAQ</a>
-        <a href="Feedback.html">Feedback</a>
-        <a href="Admin-Dashboard.html">Admin</a>
-    </nav>
+    <a href="../index.html">Home</a>
+    <a href="AboutUs.html">About</a>
+    <a href="Login.html">Login</a>
+    <a href="events.html">Events</a>
+    <a href="Profile.html">Profile</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Register.html">Register</a>
+    <a href="Faq.html">FAQ</a>
+    <a href="Feedback.html">Feedback</a>
+    <a href="Admin-Dashboard.html">Admin</a>
+</nav>
 </header>
-
-<main class="container">
-    <form>
+<form action="login.php" method="post">
     <h2>Student Login</h2>
 
     <label for="loginEmail">Email</label>
-    <input type="email" id="loginEmail" placeholder="Enter your email">
+    <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
 
     <label for="loginPassword">Password</label>
-    <input type="password" id="loginPassword" placeholder="Enter your password">
+    <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
 
     <label for="role">Login As</label>
-    <select id="role" name="role">
-    <option value="">Select Role</option>
-    <option>Student</option>
-    <option>Faculty</option>
-    <option>Admin</option>
+    <select id="role" name="role" required>
+        <option value="">Select Role</option>
+        <option value="student">Student</option>
+        <option value="faculty">Faculty</option>
+        <option value="admin">Admin</option>
     </select>
-<a href="AboutUs.html" class="btn">Login</a>
-<p>Don't have an account?
-<a href="index.html">Register Here</a>
-</p>
+
+    <button type="submit" class="btn">Login</button>
+    <p>Don't have an account? <a href="Register.html">Register Here</a></p>
 </form>
 </main>
 
 <footer>
 <p>&copy; 2026 StudentHub</p>
 </footer>
-
     <script src="../StudentHub-js.js" defer></script>
 </body>
 </html>
