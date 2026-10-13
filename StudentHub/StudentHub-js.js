@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
     initFAQAccordion();
     initModal();
     initSlider();
+    initActiveNav();
+    initScrollReveal();
+    initBackToTop();
+    initForms();
+    initEventSearch();
+    initCounters();
 });
 
 /* ---------------------------------------------------------
@@ -238,5 +244,129 @@ function initSlider() {
     slider.addEventListener('mouseenter', function () { clearInterval(autoplay); });
     slider.addEventListener('mouseleave', function () {
         autoplay = setInterval(function () { goTo(index + 1); }, 5000);
+    });
+}
+
+/* =========================================================
+   Extra interactivity (UI upgrade)
+   ========================================================= */
+
+/* Toast: small message that fades in and out */
+function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add('show'); });
+    setTimeout(function () {
+        t.classList.remove('show');
+        setTimeout(function () { t.remove(); }, 300);
+    }, 3000);
+}
+
+/* Highlight the nav link of the page you are on */
+function initActiveNav() {
+    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    document.querySelectorAll('header nav a').forEach(function (a) {
+        if (a.getAttribute('href').split('/').pop().toLowerCase() === page) a.classList.add('active');
+    });
+}
+
+/* Cards/forms fade in when scrolled into view (IntersectionObserver) */
+function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.card, .events-section, .profile-card, main form').forEach(function (el) {
+        el.classList.add('reveal');
+        obs.observe(el);
+    });
+}
+
+/* Floating "back to top" button, shown after scrolling 300px */
+function initBackToTop() {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'back-to-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.textContent = '\u2191';
+    document.body.appendChild(btn);
+    window.addEventListener('scroll', function () {
+        btn.classList.toggle('show', window.scrollY > 300);
+    });
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+/* Forms: show/hide password, password-match check, demo-mode submit.
+   When the page is opened as file:// (no PHP server) or the form has no
+   action, the form cannot reach a server, so we show a toast instead of
+   a "File not found" error. On XAMPP (http://localhost) it submits normally. */
+function initForms() {
+    document.querySelectorAll('input[type="password"]').forEach(function (input) {
+        const link = document.createElement('button');
+        link.type = 'button';
+        link.className = 'pw-toggle';
+        link.textContent = 'Show';
+        input.insertAdjacentElement('afterend', link);
+        link.addEventListener('click', function () {
+            const hidden = input.type === 'password';
+            input.type = hidden ? 'text' : 'password';
+            link.textContent = hidden ? 'Hide' : 'Show';
+        });
+    });
+
+    document.querySelectorAll('main form').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+            const pw = form.querySelector('#regPassword');
+            const confirmPw = form.querySelector('#confirmPassword');
+            if (pw && confirmPw && pw.value !== confirmPw.value) {
+                e.preventDefault();
+                showToast('\u26A0\uFE0F Passwords do not match');
+                confirmPw.focus();
+                return;
+            }
+            if (location.protocol === 'file:' || !form.getAttribute('action')) {
+                e.preventDefault();
+                showToast('\u2705 Submitted successfully (demo mode)');
+                form.reset();
+            }
+        });
+    });
+}
+
+/* Events page: live search box that filters the event list */
+function initEventSearch() {
+    const list = document.querySelector('.events-section ol');
+    if (!list) return;
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.className = 'event-search';
+    input.placeholder = '\uD83D\uDD0D Search events...';
+    list.parentElement.insertBefore(input, list);
+    input.addEventListener('input', function () {
+        const q = input.value.toLowerCase();
+        list.querySelectorAll('li').forEach(function (li) {
+            li.style.display = li.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+}
+
+/* Admin dashboard: numbers count up from 0 */
+function initCounters() {
+    document.querySelectorAll('.cards .card h2').forEach(function (el) {
+        const target = parseInt(el.textContent, 10);
+        if (isNaN(target)) return;
+        let n = 0;
+        const step = Math.max(1, Math.ceil(target / 40));
+        const timer = setInterval(function () {
+            n += step;
+            if (n >= target) { n = target; clearInterval(timer); }
+            el.textContent = n;
+        }, 30);
     });
 }

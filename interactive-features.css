@@ -5,6 +5,33 @@
    Loaded on every page alongside the existing stylesheet.
    ========================================================= */
 
+/* ---- Reset: global button style leaking into injected controls ----
+   StudentHub-css.css styles EVERY <button> with width:100%, padding:13px
+   and margin-top:25px. That pushed the hamburger, theme button, slider
+   arrows/dots and close buttons out of position. Reset them here. */
+.hamburger-btn,
+.theme-toggle-btn,
+.banner-close,
+.modal-close,
+.slider-prev,
+.slider-next,
+.slider-dot,
+.faq-question {
+    margin-top: 0;
+}
+.theme-toggle-btn,
+.banner-close,
+.modal-close,
+.slider-prev,
+.slider-next {
+    padding: 0;
+    width: auto;
+}
+.theme-toggle-btn { width: 38px; display: inline-flex; align-items: center; justify-content: center; }
+.slider-prev, .slider-next { width: 36px; }
+.slider-dot { width: 10px; }
+.modal-close { width: auto; }
+
 /* ---- Hamburger Menu ---- */
 .hamburger-btn {
     display: none;
@@ -22,7 +49,7 @@
     display: block;
     height: 3px;
     width: 100%;
-    background: #e2df06;
+    background: #4f46e5;
     border-radius: 2px;
     transition: 0.3s;
 }
@@ -43,7 +70,7 @@
 /* ---- Theme Toggle ---- */
 .theme-toggle-btn {
     background: transparent;
-    border: 2px solid #e2df06;
+    border: 2px solid #4f46e5;
     border-radius: 50%;
     width: 38px;
     height: 38px;
@@ -92,7 +119,7 @@ body[data-theme="dark"] .faq-question {
 }
 body[data-theme="dark"] footer,
 body[data-theme="dark"] .footer {
-    background: #3a3906;
+    background: #1e1b4b;
 }
 
 /* ---- Notification Banner ---- */
@@ -148,7 +175,7 @@ body[data-theme="dark"] .footer {
 .faq-question::after {
     content: '+';
     font-size: 22px;
-    color: #e2df06;
+    color: #4f46e5;
     transition: transform 0.3s;
     margin-left: 10px;
 }
@@ -202,7 +229,7 @@ body[data-theme="dark"] .footer {
     color: #888;
 }
 .modal-box h2 {
-    color: #e2df06;
+    color: #4f46e5;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -228,7 +255,7 @@ body[data-theme="dark"] .footer {
     text-align: center;
 }
 .slider-slide h4 {
-    color: #e2df06;
+    color: #4f46e5;
     font-size: 22px;
     margin-bottom: 10px;
 }
@@ -240,7 +267,7 @@ body[data-theme="dark"] .footer {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(226,223,6,0.9);
+    background: rgba(79,70,229,0.9);
     color: #fff;
     border: none;
     width: 36px;
@@ -268,5 +295,57 @@ body[data-theme="dark"] .footer {
     padding: 0;
 }
 .slider-dot.active {
-    background: #e2df06;
+    background: #4f46e5;
 }
+
+/* =========================================================
+   UI upgrade: theme, hover effects, toast, back-to-top, etc.
+   ========================================================= */
+:root { --primary: #4f46e5; --primary-dark: #4338ca; }
+body { font-family: 'Segoe UI', system-ui, Arial, sans-serif; background: #f4f5fb; }
+header { position: sticky; top: 0; z-index: 50; }
+header nav a:hover { background: rgba(79,70,229,0.1); color: var(--primary); }
+header nav a.active { background: var(--primary); color: #fff; }  /* current page */
+form button, .btn, .event-register, .edit-btn { transition: 0.25s; }
+form button:hover, .btn:hover, .event-register:hover, .edit-btn:hover {
+    background: var(--primary-dark); transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(79,70,229,0.3);
+}
+.card { transition: 0.3s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.2); }
+form { box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+footer { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+body[data-theme="dark"] footer { background: #1e1b4b; }
+
+/* Scroll reveal (class added by JS) */
+.reveal { opacity: 0; }
+.reveal.visible { opacity: 1; animation: fadeUp 0.6s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* Toast message */
+.toast {
+    position: fixed; bottom: 25px; left: 50%; transform: translate(-50%, 30px);
+    background: #222; color: #fff; padding: 12px 22px; border-radius: 8px;
+    opacity: 0; transition: 0.3s; z-index: 200; font-size: 15px;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Back-to-top button */
+.back-to-top {
+    position: fixed; right: 20px; bottom: 25px; width: 44px; height: 44px; padding: 0;
+    margin: 0; border-radius: 50%; background: var(--primary); color: #fff; font-size: 20px;
+    opacity: 0; pointer-events: none; transition: 0.3s; z-index: 90;
+}
+.back-to-top.show { opacity: 1; pointer-events: auto; }
+
+/* Show/Hide password link */
+.pw-toggle {
+    width: auto; margin-top: 6px; padding: 0; background: transparent;
+    color: var(--primary); font-size: 13px; text-align: left; display: block;
+}
+
+/* Events page: search box + tidy list */
+.events-section { flex-direction: column; align-items: stretch; }
+.event-search { margin-bottom: 10px; }
+.events-section li { display: flex; justify-content: space-between; align-items: center; }

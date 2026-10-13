@@ -12,7 +12,7 @@ body {
 
 header {
     background: white;
-    color: #e2df06;
+    color: #4f46e5;
     padding: 18px 8%;
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,7 @@ header h1 {
 }
 
 nav a {
-    color: #e2df06;
+    color: #4f46e5;
     text-decoration: none;
     padding: 9px 14px;
     border-radius: 8px;
@@ -36,7 +36,7 @@ nav a {
 
 nav a:hover {
     background: white;
-    color: #e2df06;
+    color: #4f46e5;
 }
 
 nav {
@@ -54,7 +54,7 @@ nav {
 .hero {
     text-align: center;
     background: white;
-    color: #e2df06;
+    color: #4f46e5;
     padding: 70px 20px;
     border-radius: 15px;
     margin-bottom: 40px;
@@ -80,7 +80,7 @@ nav {
 
 .card h2,
 .card h3 {
-    color: #e2df06;
+    color: #4f46e5;
     margin-bottom: 12px;
 }
 
@@ -101,12 +101,12 @@ nav {
 }
 
 .contact-card h3 {
-    color: #e2df06;
+    color: #4f46e5;
     margin-bottom: 15px;
 }
 
 .contact-card a {
-    color: #e2df06;
+    color: #4f46e5;
     text-decoration: none;
 }
 
@@ -127,7 +127,7 @@ form {
 form h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #e2df06;
+    color: #4f46e5;
 }
 
 label {
@@ -152,7 +152,7 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: #e2df06;
+    border-color: #4f46e5;
 }
 
 button,
@@ -161,7 +161,7 @@ button,
     width: 100%;
     margin-top: 25px;
     padding: 13px;
-    background: #e2df06;
+    background: #4f46e5;
     color: white;
     border: none;
     border-radius: 8px;
@@ -173,7 +173,7 @@ button,
 
 footer {
     margin-top: 50px;
-    background: #e2df06;
+    background: #4f46e5;
     color: white;
     text-align: center;
     padding: 18px 10px;
@@ -190,7 +190,7 @@ form p {
 }
 
 form a {
-    color: #e2df06;
+    color: #4f46e5;
     text-decoration: none;
 }
 
@@ -216,7 +216,7 @@ form a {
 }
 
 .profile-card h2 {
-    color: #e2df06;
+    color: #4f46e5;
     margin-bottom: 15px;
 }
 
@@ -225,7 +225,7 @@ form a {
 }
 
 .profile-card button {
-    background: #e2df06;
+    background: #4f46e5;
     color: white;
     border: none;
     padding: 12px;
@@ -248,7 +248,7 @@ form a {
 }
 
 .events-section h3 {
-    color: #e2df06;
+    color: #4f46e5;
     margin-bottom: 20px;
 }
 
@@ -260,14 +260,14 @@ form a {
     display: inline-block;
     margin-left: 20px;
     padding: 8px 15px;
-    background: #e2df06;
+    background: #4f46e5;
     color: white;
     text-decoration: none;
     border-radius: 6px;
 }
 
 .event-register:hover {
-    background: #e2df06;
+    background: #4f46e5;
 }
 
 .cards {
@@ -282,7 +282,7 @@ form a {
 }
 
 .cards .card h2 {
-    color: #e2df06;
+    color: #4f46e5;
     font-size: 30px;
 }
 
