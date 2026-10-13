@@ -3,71 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+    <title>StudentHub | Events</title>
     <link rel="stylesheet" href="../StudentHub-css.css">
     <link rel="stylesheet" href="../interactive-features.css">
+    <link rel="stylesheet" href="../events-page.css">
 </head>
 <body>
-
 <header>
     <h1>StudentHub</h1>
-
     <nav aria-label="Main Navigation">
-    <a href="../index.html">Home</a>
-    <a href="AboutUs.html">About</a>
-    <a href="Login.html">Login</a>
-    <a href="events.html">Events</a>
-    <a href="Profile.html">Profile</a>
-    <a href="Contact.html">Contact</a>
-    <a href="Register.html">Register</a>
-    <a href="Faq.html">FAQ</a>
-    <a href="Feedback.html">Feedback</a>
-    <a href="Admin-Dashboard.html">Admin</a>
-</nav>
+        <a href="../index.html">Home</a>
+        <a href="AboutUs.html">About</a>
+        <a href="Login.html">Login</a>
+        <a href="events.html">Events</a>
+        <a href="Profile.html">Profile</a>
+        <a href="Contact.html">Contact</a>
+        <a href="Register.html">Register</a>
+        <a href="Faq.html">FAQ</a>
+        <a href="Feedback.html">Feedback</a>
+        <a href="Admin-Dashboard.html">Admin</a>
+    </nav>
 </header>
 
-<section class="container" aria-labelledby="highlights-heading">
-    <h3 id="highlights-heading" style="text-align:center; color:#e2df06; margin-bottom:10px;">Event Highlights</h3>
+<main class="container">
+    <h2 class="page-title">Campus Events</h2>
+    <p class="page-sub">Pick an event and register in seconds.</p>
+
+    <!-- Highlights slider: slides are generated from the next upcoming events -->
     <div class="slider">
-        <div class="slider-track">
-            <div class="slider-slide">
-                <h4>Cultural Fest 2026</h4>
-                <p>12 Sep 2026 &mdash; A celebration of music, dance and art across campus. Open to all students.</p>
-            </div>
-            <div class="slider-slide">
-                <h4>Hackathon</h4>
-                <p>15 Sep 2026 &mdash; Build something amazing in 24 hours and compete for exciting prizes.</p>
-            </div>
-            <div class="slider-slide">
-                <h4>Workshop on Web Development</h4>
-                <p>20 Sep 2026 &mdash; Hands-on session covering HTML, CSS and JavaScript fundamentals.</p>
-            </div>
-        </div>
+        <div class="slider-track" id="sliderTrack"></div>
         <button type="button" class="slider-prev" aria-label="Previous slide">&#8249;</button>
         <button type="button" class="slider-next" aria-label="Next slide">&#8250;</button>
         <div class="slider-dots"></div>
     </div>
-</section>
 
-<section class="events-section" aria-labelledby="upcoming-events-heading">
-    <h3 id="upcoming-events-heading">Upcoming Events</h3>
-    <ol>
-        <li>
-            Cultural Fest 2026 -- 12 Sep 2026
-            <a href="Register.html" class="event-register">Register</a>
-        </li>
-        <li>
-            Hackathon -- 15 Sep 2026
-            <a href="Register.html" class="event-register">Register</a>
-        </li>
-        <li>
-            Workshop on Web Development -- 20 Sep 2026
-            <a href="Register.html" class="event-register">Register</a>
-        </li>
-    </ol>
-</section>
+    <!-- Search + filter by event type -->
+    <div class="event-toolbar">
+        <input type="search" id="eventSearch" class="event-search" placeholder="🔍 Search events...">
+        <div class="chips" id="eventChips"></div>
+    </div>
+
+    <!-- Event cards are generated here by StudentHub-js.js -->
+    <div class="event-grid" id="eventGrid"></div>
+</main>
+
+<!-- Event registration popup (uses the same modal styles as Practical 4) -->
+<div class="modal-overlay" id="regOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+        <button type="button" class="modal-close" aria-label="Close">&times;</button>
+        <h2 id="regTitle">Register for Event</h2>
+        <p class="reg-summary" id="regSummary"></p>
+        <form id="regForm" action="Event.php" method="post">
+            <label for="regName">Your Name</label>
+            <input type="text" id="regName" name="Student_Name" placeholder="Enter your name" required>
+
+            <label for="regEmail">Your Email</label>
+            <input type="email" id="regEmail" name="Student_Email" placeholder="Enter your email" required>
+
+            <!-- Filled in by JavaScript from the clicked event -->
+            <input type="hidden" name="Event_ID">
+            <input type="hidden" name="Event_Name">
+            <input type="hidden" name="Event_Date">
+            <input type="hidden" name="Event_Venue">
+            <input type="hidden" name="Event_Type">
+            <input type="hidden" name="Event_coordinator">
+
+            <button type="submit">Confirm Registration</button>
+        </form>
+    </div>
+</div>
 
 <footer><p>&copy; 2026 StudentHub</p></footer>
-    <script src="../StudentHub-js.js" defer></script>
+<script src="StudentHub-js.js" defer></script>
 </body>
 </html>
