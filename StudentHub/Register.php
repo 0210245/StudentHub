@@ -4,7 +4,8 @@
    Receives the form from Register.html, validates it,
    and saves the new user in the "users" table (database: studenthub).
    Put this file in the StudentHub/ folder next to Register.html.
-   ========================================================= */
+   =========================================================
+*/
 
 // Database settings (accounts database, default XAMPP login)
 mysqli_report(MYSQLI_REPORT_OFF);   // return false on DB errors instead of throwing exceptions

@@ -1,78 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Registration Form</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration </title>
+    <link rel="stylesheet" href="Form.css">
 </head>
 <body>
+<header>
+   <h1>Registration Form</h1>
+</header>
 
-<div class="container">
-    <h2>Student Registration Form</h2>
+<main class="wrap">
+    
+    <form id="regForm">
+        <h2>Create Your Account</h2>
+        
+        <div class="field">
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName" placeholder="e.g. Riya Patel" aria-required="true">
+            <span class="error" id="fullNameError" aria-live="polite"></span>
+        </div>
 
-    <form id="registrationForm">
+        <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="name@example.com" aria-required="true">
+            <span class="error" id="emailError" aria-live="polite"></span>
+        </div>
 
-        <label>Name:</label>
-        <input type="text" id="name" placeholder="Enter your name"><br><br>
-        <span id="nameError"></span>
+        <div class="field">
+            <label for="mobile">Mobile Number <span class="req">*</span></label>
+            <input type="number" id="mobile" name="mobile" maxlength="10" placeholder="10-digit number" aria-required="true" >
+            <span class="error" id="mobileError" aria-live="polite"></span>
+        </div>
 
-        <label>Email:</label>
-        <input type="email" id="email" placeholder="Enter your email"><br><br>
-        <span id="emailError"></span>
+        <div class="field">
+            <label for="password">Password <span class="req">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Create a strong password" aria-required="true">
+            <div class="meter" aria-hidden="true"><div id="meterBar" class="bar"></div></div>
+            <span id="meterText" class="meter-text" aria-live="polite"></span>
+            <small id="passwordHint">At least 8 characters with uppercase, lowercase, a number and a special character.</small>
+            <span class="error" id="passwordError" aria-live="polite"></span>
+        </div>
 
-        <label>Mobile Number:</label>
-        <input type="tel" id="mobile" placeholder="Enter 10 digit mobile number"><br><br>
-        <span id="mobileError"></span>
+        <div class="field">
+            <label for="confirmPassword">Confirm Password <span class="req">*</span></label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" aria-required="true">
+            <span class="error" id="confirmPasswordError" aria-live="polite"></span>
+        </div>
 
-        <label>Password:</label>
-        <input type="password" id="password" placeholder="Enter password"><br><br>
-        <span id="passwordError"></span>
+        <div class="row">
+            <div class="field">
+                <label for="course">Course <span class="req">*</span></label>
+                <select id="course" name="course" aria-required="true" aria-describedby="courseError">
+                    <option value="">Select course</option>
+                    <option>B.Tech</option>
+                    <option>M.Tech</option>
+                    <option>BCA</option>
+                    <option>MCA</option>
+                    <option>B.Sc</option>
+                </select>
+                <span class="error" id="courseError" aria-live="polite"></span>
+            </div>
+            <div class="field">
+                <label for="year">Year <span class="req">*</span></label>
+                <select id="year" name="year" aria-required="true" aria-describedby="yearError">
+                    <option value="">Select year</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                </select>
+                <span class="error" id="yearError" aria-live="polite"></span>
+            </div>
+        </div>
 
-        <label>Confirm Password:</label>
-        <input type="password" id="confirmPassword" placeholder="Confirm password"><br><br>
-        <span id="confirmPasswordError"></span>
+        <fieldset class="field" aria-describedby="genderError">
+            <legend>Gender <span class="req">*</span></legend>
+            <label class="inline"><input type="radio" name="gender" value="Female"> Female</label>
+            <label class="inline"><input type="radio" name="gender" value="Male"> Male</label>
+            <label class="inline"><input type="radio" name="gender" value="Other"> Other</label>
+            <span class="error" id="genderError" aria-live="polite"></span>
+        </fieldset>
 
-        <label>Course:</label>
-        <select id="course">
-            <option value="">Select Course</option>
-            <option value="BCA">BCA</option>
-            <option value="B.Tech">B.Tech</option>
-            <option value="MCA">MCA</option>
-            <option value="M.Tech">M.Tech</option>
-        </select><br><br>
-        <span id="courseError"></span>
+        <div class="field">
+            <label class="inline" for="terms">
+                <input type="checkbox" id="terms" name="terms" aria-describedby="termsError">
+                I accept the terms and conditions <span class="req">*</span>
+            </label>
+            <span class="error" id="termsError" aria-live="polite"></span>
+        </div>
+        <div class="actions">
+            <button type="submit" id="submitBtn">Register</button>
+        </div>
 
-        <label>Year:</label>
-        <select id="year">
-            <option value="">Select Year</option>
-            <option value="1st Year">1st Year</option>
-            <option value="2nd Year">2nd Year</option>
-            <option value="3rd Year">3rd Year</option>
-            <option value="4th Year">4th Year</option>
-        </select><br><br>
-        <span id="yearError"></span>
-
-        <label>Gender:</label>
-        <div class="gender">
-            <input type="radio" name="gender" value="Male"> Male
-            <input type="radio" name="gender" value="Female"> Female
-            <input type="radio" name="gender" value="Other"> Other
-        </div><br><br>
-        <span id="genderError"></span>
-
-        <div class="terms">
-            <input type="checkbox" id="terms">
-            I accept the Terms and Conditions
-        </div><br><br>
-        <span id="termsError"></span>
-
-        <button type="submit">Register</button>
-
-        <p id="successMessage"></p>
-
+        <p id="formStatus" class="status" role="status" tabindex="-1"></p>
     </form>
-</div>
+</main>
 
+<footer><p>&copy; 2026 StudentHub</p></footer>
 <script src="student-form.js"></script>
-
 </body>
 </html>
