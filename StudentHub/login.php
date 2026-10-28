@@ -2,6 +2,7 @@
 /**
  * login.php - Practical 10: Secure Authentication, Session Management, RBAC & Timeout
  */
+ob_start();
 session_start();
 require_once __DIR__ . '/db.php';
 
@@ -75,11 +76,13 @@ $_SESSION["last_activity"] = time();
 recordAuditLog($conn, $user["id"], 'USER_LOGIN', "{$user['email']} logged in as {$user['role']}");
 mysqli_close($conn);
 
-// 5. Role-Based Access Control Redirection
+// 5. Role-Based Access Control Redirection (Practical 10)
 if ($user["role"] === "admin") {
     header("Location: Admin-Dashboard.php");
+    echo "<script>window.location.href='Admin-Dashboard.php';</script>";
 } else {
-    header("Location: Profile.php");
+    header("Location: AboutUs.html");
+    echo "<script>window.location.href='AboutUs.html';</script>";
 }
 exit;
 ?>

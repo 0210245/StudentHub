@@ -2,6 +2,7 @@
 /**
  * register.php - Practical 9: Secure Registration with Password Hashing & Duplicate Checks
  */
+ob_start();
 require_once __DIR__ . '/db.php';
 
 function showMessage($title, $message, $linkText, $linkUrl) {
@@ -96,7 +97,11 @@ if (mysqli_stmt_execute($stmt)) {
     recordAuditLog($conn, $newId, 'USER_REGISTER', "Registered {$role} account ({$email})");
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
-    showMessage("Registration successful!", "Welcome to StudentHub, " . htmlspecialchars($fullName) . ".", "Go to Login", "Login.html");
+
+    // Automatically redirect directly to Login page
+    header("Location: Login.html?registered=1");
+    echo "<script>window.location.href='Login.html?registered=1';</script>";
+    exit;
 } else {
     $err = mysqli_stmt_error($stmt);
     mysqli_stmt_close($stmt);

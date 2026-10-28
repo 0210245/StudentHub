@@ -16,16 +16,19 @@
     <a href="AboutUs.html">About</a>
     <a href="Login.html">Login</a>
     <a href="events.html">Events</a>
-    <a href="Profile.html">Profile</a>
+    <a href="Profile.php">Profile</a>
     <a href="Contact.html">Contact</a>
     <a href="Register.html">Register</a>
     <a href="Faq.html">FAQ</a>
     <a href="Feedback.html">Feedback</a>
-    <a href="Admin-Dashboard.html">Admin</a>
+    <a href="Admin-Dashboard.php">Admin</a>
 </nav>
 </header>
 <main class="container">
 <form action="login.php" method="post">
+    <div id="regAlert" style="display:none; background:#dcfce7; color:#15803d; padding:10px; border-radius:6px; font-size:14px; text-align:center; margin-bottom:15px; font-weight:600;">
+        Registration successful! Please login below.
+    </div>
     <h2>Student Login</h2>
 
     <label for="loginEmail">Email</label>
@@ -51,5 +54,12 @@
 <p>&copy; 2026 StudentHub</p>
 </footer>
     <script src="StudentHub-js.js" defer></script>
+    <script>
+      // Display registration success message if redirected from register.php
+      if (window.location.search.includes('registered=1')) {
+          const el = document.getElementById('regAlert');
+          if (el) el.style.display = 'block';
+      }
+    </script>
 </body>
 </html>
