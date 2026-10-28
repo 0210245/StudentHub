@@ -1,26 +1,34 @@
 <?php
 /* =========================================================
-   contact-records.php
-   Reads StudentHub/storage/contacts.csv and shows every saved
-   message in a table (newest first).
-   Put this file in the StudentHub/ folder.
+   contact-records.php - Practical 7: View CSV & JSON Records
+   Reads StudentHub/storage/contacts.csv & contacts.json
    ========================================================= */
 
-$file = __DIR__ . "/storage/contacts.csv";
+$csvFile = __DIR__ . "/storage/contacts.csv";
+$jsonFile = __DIR__ . "/storage/contacts.json";
 $rows = [];
+$jsonRows = [];
 
-if (file_exists($file) && ($handle = fopen($file, "r")) !== false) {
-    fgetcsv($handle, 0, ",", "\"", "\\");                    // skip the first line (column names)
+// 1. Read CSV
+if (file_exists($csvFile) && ($handle = fopen($csvFile, "r")) !== false) {
+    fgetcsv($handle, 0, ",", "\"", "\\"); // skip header
     while (($row = fgetcsv($handle, 0, ",", "\"", "\\")) !== false) {
-        if (count($row) === 4) {                              // ignore empty or broken lines
+        if (count($row) >= 4) {
             $rows[] = $row;
         }
     }
     fclose($handle);
 }
-$rows = array_reverse($rows);                                 // newest message first
+$rows = array_reverse($rows);
 
-/* Makes text safe to print inside HTML */
+// 2. Read JSON
+if (file_exists($jsonFile) && filesize($jsonFile) > 0) {
+    $decoded = json_decode(file_get_contents($jsonFile), true);
+    if (is_array($decoded)) {
+        $jsonRows = array_reverse($decoded);
+    }
+}
+
 function esc($text) {
     return htmlspecialchars($text, ENT_QUOTES, "UTF-8");
 }
@@ -34,7 +42,7 @@ function esc($text) {
     <link rel="stylesheet" href="../StudentHub-css.css">
     <link rel="stylesheet" href="../interactive-features.css">
     <style>
-        .table-wrap { overflow-x: auto; }
+        .table-wrap { overflow-x: auto; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
         th { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; text-align: left; padding: 10px; }
         td { padding: 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
@@ -54,31 +62,55 @@ function esc($text) {
         <a href="Register.html">Register</a>
         <a href="Faq.html">FAQ</a>
         <a href="Feedback.html">Feedback</a>
-        <a href="Admin-Dashboard.html">Admin</a>
+        <a href="Admin-Dashboard.php">Admin</a>
     </nav>
 </header>
 
 <main class="container">
-    <h2>Saved Messages</h2>
+    <h2>Saved Messages (Practical 7 File Storage)</h2>
+
+    <!-- CSV Table -->
     <div class="card">
-        <?php if (count($rows) === 0) { ?>
-            <p>No messages yet. <a href="Contact.html">Send the first one.</a></p>
-        <?php } else { ?>
-            <p>Total messages: <strong><?php echo count($rows); ?></strong></p><br>
+        <h3>Saved in CSV File (<?php echo count($rows); ?> Total)</h3>
+        <?php if (count($rows) === 0): ?>
+            <p style="color:#64748b; margin-top:8px;">No CSV messages recorded yet.</p>
+        <?php else: ?>
             <div class="table-wrap">
                 <table>
-                    <tr><th>Date and time</th><th>Name</th><th>Email</th><th>Message</th></tr>
-                    <?php foreach ($rows as $row) { ?>
+                    <tr><th>Date &amp; Time</th><th>Name</th><th>Email</th><th>Message</th></tr>
+                    <?php foreach ($rows as $row): ?>
                         <tr>
                             <td><?php echo esc($row[0]); ?></td>
-                            <td><?php echo esc($row[1]); ?></td>
+                            <td><strong><?php echo esc($row[1]); ?></strong></td>
                             <td><?php echo esc($row[2]); ?></td>
                             <td><?php echo esc($row[3]); ?></td>
                         </tr>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </table>
             </div>
-        <?php } ?>
+        <?php endif; ?>
+    </div>
+
+    <!-- JSON Table -->
+    <div class="card" style="margin-top:20px;">
+        <h3>Saved in JSON File (<?php echo count($jsonRows); ?> Total)</h3>
+        <?php if (count($jsonRows) === 0): ?>
+            <p style="color:#64748b; margin-top:8px;">No JSON messages recorded yet.</p>
+        <?php else: ?>
+            <div class="table-wrap">
+                <table>
+                    <tr><th>Date &amp; Time</th><th>Name</th><th>Email</th><th>Message</th></tr>
+                    <?php foreach ($jsonRows as $j): ?>
+                        <tr>
+                            <td><?php echo esc($j['timestamp'] ?? ''); ?></td>
+                            <td><strong><?php echo esc($j['name'] ?? ''); ?></strong></td>
+                            <td><?php echo esc($j['email'] ?? ''); ?></td>
+                            <td><?php echo esc($j['message'] ?? ''); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        <?php endif; ?>
     </div>
 </main>
 

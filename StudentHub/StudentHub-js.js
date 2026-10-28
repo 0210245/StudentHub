@@ -586,10 +586,29 @@ function initEventsPage() {
         if (ev.key === 'Escape' && overlay.classList.contains('active')) closeModal();
     });
 
-    // ---- 9. Start ----
+    // ---- 9. Start & Fetch External JSON (Practical 6) ----
     buildSlider();
     buildChips();
     render();
+
+    // Fetch external events.json dynamically using Fetch API (Practical 6)
+    if (window.fetch) {
+        fetch('events.json')
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                if (Array.isArray(data) && data.length) {
+                    EVENTS.length = 0;
+                    data.forEach(function (e) { EVENTS.push(e); });
+                    try { localStorage.setItem('studenthub-events-cache', JSON.stringify(data)); } catch (e) {}
+                    buildSlider();
+                    buildChips();
+                    render();
+                }
+            })
+            .catch(function () {
+                // If offline or local file, EVENTS array serves as fallback
+            });
+    }
 }
 
 /* =========================================================

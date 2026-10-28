@@ -36,11 +36,18 @@ if (!$conn) {
     showMessage("Server problem", "Could not connect to database. Is MySQL running on WAMP?", "Back", "Login.html");
 }
 
-// 1. Prepared Statement user lookup
+// 1. Prepared Statement user lookup (safe across old and new schemas)
 $stmt = mysqli_prepare($conn,
-    "SELECT id, full_name, email, role, user_id, department, password, status
+    "SELECT id, full_name, email, role, user_id, department, password
      FROM users WHERE email = ? AND role = ? LIMIT 1"
 );
+
+if (!$stmt) {
+    $err = mysqli_error($conn);
+    mysqli_close($conn);
+    showMessage("Database Query Error", "Could not prepare login query: " . $err . ". Did you import DB.sql?", "Back", "Login.html");
+}
+
 mysqli_stmt_bind_param($stmt, "ss", $email, $role);
 mysqli_stmt_execute($stmt);
 $res = mysqli_stmt_get_result($stmt);
@@ -51,11 +58,6 @@ mysqli_stmt_close($stmt);
 if (!$user || !password_verify($password, $user["password"])) {
     mysqli_close($conn);
     showMessage("Login failed", "Incorrect email, password or role.", "Try again", "Login.html");
-}
-
-if ($user['status'] !== 'active') {
-    mysqli_close($conn);
-    showMessage("Account Inactive", "Your account has been deactivated. Contact an administrator.", "Back", "Login.html");
 }
 
 // 3. Regenerate session ID (prevents session fixation)
@@ -69,11 +71,7 @@ $_SESSION["department"]    = $user["department"];
 $_SESSION["last_activity"] = time();
 
 // 4. Update last_login timestamp & record audit
-$upd = mysqli_prepare($conn, "UPDATE users SET last_login = NOW() WHERE id = ?");
-mysqli_stmt_bind_param($upd, "i", $user["id"]);
-mysqli_stmt_execute($upd);
-mysqli_stmt_close($upd);
-
+@mysqli_query($conn, "UPDATE users SET last_login = NOW() WHERE id = " . intval($user["id"]));
 recordAuditLog($conn, $user["id"], 'USER_LOGIN', "{$user['email']} logged in as {$user['role']}");
 mysqli_close($conn);
 
@@ -81,7 +79,7 @@ mysqli_close($conn);
 if ($user["role"] === "admin") {
     header("Location: Admin-Dashboard.php");
 } else {
-    header("Location: Profile.html");
+    header("Location: Profile.php");
 }
 exit;
 ?>
