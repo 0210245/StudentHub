@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initNotificationBanner();
     initFAQAccordion();
     initModal();
+    loadProfile();
     initEventsPage();   // must run before initSlider(): it builds the slides
     initSlider();
     initActiveNav();
@@ -34,31 +35,21 @@ document.addEventListener('DOMContentLoaded', function () {
    <header> and toggles a "nav-open" class on click.
 --------------------------------------------------------- */
 function initHamburgerMenu() {
-    const nav = document.querySelector('header nav');
+    const nav = document.querySelector('header nav');      // find the menu
     if (!nav) return;
 
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'hamburger-btn';
-    toggleBtn.type = 'button';
-    toggleBtn.setAttribute('aria-label', 'Toggle navigation menu');
-    toggleBtn.setAttribute('aria-expanded', 'false');
-    toggleBtn.innerHTML = '<span></span><span></span><span></span>';
+    // 1. create the button with 3 bars inside
+    const button = document.createElement('button');
+    button.className = 'hamburger-btn';
+    button.innerHTML = '<span></span><span></span><span></span>';
 
-    nav.parentElement.insertBefore(toggleBtn, nav);
+    // 2. put the button in the header, just before the menu
+    nav.parentElement.insertBefore(button, nav);
 
-    toggleBtn.addEventListener('click', function () {
-        const isOpen = nav.classList.toggle('nav-open');
-        toggleBtn.classList.toggle('active', isOpen);
-        toggleBtn.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    // Close the menu automatically once a link is tapped (mobile UX)
-    nav.querySelectorAll('a').forEach(function (link) {
-        link.addEventListener('click', function () {
-            nav.classList.remove('nav-open');
-            toggleBtn.classList.remove('active');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-        });
+    // 3. when the button is clicked, show or hide the menu
+    button.addEventListener('click', function () {
+        nav.classList.toggle('nav-open');     // adds the class if missing, removes it if present
+        button.classList.toggle('active');    // turns the 3 bars into an X
     });
 }
 
@@ -185,9 +176,17 @@ function initModal() {
 
     if (form) {
         form.addEventListener('submit', function (e) {
+            // A form with an action (Profile.php) is submitted to PHP normally
+            if (form.getAttribute('action')) return;
             e.preventDefault();
-            alert('Profile updated successfully!');
+            updateProfile({
+                name: document.getElementById('edit-name').value.trim(),
+                course: document.getElementById('edit-course').value.trim(),
+                department: document.getElementById('edit-dept').value.trim(),
+                year: document.getElementById('edit-year').value
+            });
             closeModal();
+            showToast('\u2705 Profile updated successfully!');
         });
     }
 }
@@ -267,9 +266,11 @@ function showToast(msg) {
 
 /* Highlight the nav link of the page you are on */
 function initActiveNav() {
-    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    // Compare file names without .html/.php so Profile.html and Profile.php both match
+    const clean = function (path) { return path.split('/').pop().toLowerCase().replace(/\.(html|php)$/, ''); };
+    const page = clean(location.pathname) || 'index';
     document.querySelectorAll('header nav a').forEach(function (a) {
-        if (a.getAttribute('href').split('/').pop().toLowerCase() === page) a.classList.add('active');
+        if (clean(a.getAttribute('href')) === page) a.classList.add('active');
     });
 }
 
@@ -589,4 +590,43 @@ function initEventsPage() {
     buildSlider();
     buildChips();
     render();
+}
+
+/* =========================================================
+   Profile page (Profile.html): show the edited values
+   Works with the page's normal HTML (no special ids needed).
+   Does nothing on Profile.php, because that form has an action.
+   ========================================================= */
+
+// Replaces the text of one row, e.g. "Course: B.tech" -> "Course: M.Tech"
+function setProfileInfo(label, value) {
+    document.querySelectorAll('.student-info p').forEach(function (row) {
+        if (row.textContent.indexOf(label) === 0) {
+            row.innerHTML = '<strong>' + label + '</strong> ';
+            row.appendChild(document.createTextNode(value));
+        }
+    });
+}
+
+// Writes the values into the page and remembers them in localStorage
+function updateProfile(p) {
+    document.querySelector('.profile-card h2').textContent = p.name;
+    setProfileInfo('Course:', p.course);
+    setProfileInfo('Department:', p.department);
+    setProfileInfo('Year:', p.year);
+    localStorage.setItem('studenthub-profile', JSON.stringify(p));
+}
+
+// When the page opens: show the saved values (if the user edited them before)
+function loadProfile() {
+    const form = document.querySelector('.modal-overlay form');
+    if (!document.querySelector('.profile-card') || !form || form.getAttribute('action')) return;
+    const saved = localStorage.getItem('studenthub-profile');
+    if (!saved) return;
+    const p = JSON.parse(saved);
+    updateProfile(p);
+    document.getElementById('edit-name').value = p.name;       // fill the popup form too
+    document.getElementById('edit-course').value = p.course;
+    document.getElementById('edit-dept').value = p.department;
+    document.getElementById('edit-year').value = p.year;
 }
