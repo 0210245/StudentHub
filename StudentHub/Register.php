@@ -1,20 +1,9 @@
 <?php
-/* =========================================================
-   register.php
-   Receives the form from Register.html, validates it,
-   and saves the new user in the "users" table (database: studenthub).
-   Put this file in the StudentHub/ folder next to Register.html.
-   =========================================================
-*/
+/**
+ * register.php - Practical 9: Secure Registration with Password Hashing & Duplicate Checks
+ */
+require_once __DIR__ . '/db.php';
 
-// Database settings (accounts database, default XAMPP login)
-mysqli_report(MYSQLI_REPORT_OFF);   // return false on DB errors instead of throwing exceptions
-$host = "localhost";
-$dbUser = "root";
-$dbPass = "";
-$dbName = "studenthub";
-
-/* Shows a small styled result page and stops the script */
 function showMessage($title, $message, $linkText, $linkUrl) {
     echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>
           <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -28,73 +17,81 @@ function showMessage($title, $message, $linkText, $linkUrl) {
     exit;
 }
 
-// 1. Only accept a form submission (POST). Otherwise go back to the form.
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: Register.html");
     exit;
 }
 
-// 2. Read the values (trim removes extra spaces)
 $fullName   = trim($_POST["full_name"] ?? "");
-$email      = trim($_POST["email"] ?? "");
-$role       = $_POST["role"] ?? "";
+$email      = filter_var(trim($_POST["email"] ?? ""), FILTER_SANITIZE_EMAIL);
+$role       = $_POST["role"] ?? "student";
 $userId     = trim($_POST["user_id"] ?? "");
 $department = trim($_POST["department"] ?? "");
 $password   = $_POST["password"] ?? "";
 $confirm    = $_POST["confirm_password"] ?? "";
 
-// 3. Server-side validation (never trust only the browser/JavaScript check)
 if ($fullName === "" || $email === "" || $userId === "" || $department === "") {
-    showMessage("Missing details", "Please fill in all the fields.", "Back", "Register.html");
+    showMessage("Missing details", "Please fill in all the required fields.", "Back", "Register.html");
 }
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    showMessage("Invalid email", "Please enter a valid email address.", "Back", "Register.html");
+    showMessage("Invalid email", "Please enter a valid institutional email address.", "Back", "Register.html");
 }
-if ($role !== "student" && $role !== "faculty") {
+
+if (!in_array($role, ["student", "faculty"])) {
     showMessage("Invalid role", "Please choose Student or Faculty.", "Back", "Register.html");
 }
+
 if (strlen($password) < 8) {
     showMessage("Weak password", "Password must be at least 8 characters.", "Back", "Register.html");
 }
+
 if ($password !== $confirm) {
     showMessage("Passwords do not match", "Please re-enter your password.", "Back", "Register.html");
 }
 
-// 4. Connect to MySQL (@ hides the raw PHP warning; we show our own message)
-$conn = @mysqli_connect($host, $dbUser, $dbPass, $dbName);
+$conn = getDBConnection();
 if (!$conn) {
-    error_log(mysqli_connect_error());
-    showMessage("Server problem", "Could not connect to the database. Is MySQL running?", "Back", "Register.html");
+    showMessage("Server problem", "Could not connect to database. Ensure MySQL is running on WAMP.", "Back", "Register.html");
 }
 
-// 5. Check if this email or ID is already registered
-$check = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ? OR user_id = ?");
+// 1. Check for Duplicate Email or User ID (Prepared Statement)
+$check = mysqli_prepare($conn, "SELECT id, email, user_id FROM users WHERE email = ? OR user_id = ? LIMIT 1");
 mysqli_stmt_bind_param($check, "ss", $email, $userId);
 mysqli_stmt_execute($check);
-mysqli_stmt_store_result($check);
-if (mysqli_stmt_num_rows($check) > 0) {
+$res = mysqli_stmt_get_result($check);
+
+if ($existing = mysqli_fetch_assoc($res)) {
     mysqli_stmt_close($check);
     mysqli_close($conn);
-    showMessage("Already registered", "This email or ID is already in use.", "Login instead", "Login.html");
+    if (strtolower($existing['email']) === strtolower($email)) {
+        showMessage("Already registered", "This email is already in use.", "Login instead", "Login.html");
+    } else {
+        showMessage("ID already exists", "This Student/Faculty ID is already registered.", "Back", "Register.html");
+    }
 }
 mysqli_stmt_close($check);
 
-// 6. Hash the password (never store a plain-text password!)
+// 2. Hash Password with BCrypt (password_hash)
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
-// 7. Insert using a prepared statement (protects against SQL injection)
+// 3. Prepared Statement INSERT
 $stmt = mysqli_prepare($conn,
-    "INSERT INTO users (full_name, email, role, user_id, department, password)
-     VALUES (?, ?, ?, ?, ?, ?)");
+    "INSERT INTO users (full_name, email, role, user_id, department, password, status)
+     VALUES (?, ?, ?, ?, ?, ?, 'active')"
+);
 mysqli_stmt_bind_param($stmt, "ssssss", $fullName, $email, $role, $userId, $department, $hash);
 
 if (mysqli_stmt_execute($stmt)) {
-    showMessage("Registration successful!", "Welcome to StudentHub, " . $fullName . ".", "Go to Login", "Login.html");
+    $newId = mysqli_insert_id($conn);
+    recordAuditLog($conn, $newId, 'USER_REGISTER', "Registered {$role} account ({$email})");
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    showMessage("Registration successful!", "Welcome to StudentHub, " . htmlspecialchars($fullName) . ".", "Go to Login", "Login.html");
 } else {
-    error_log(mysqli_stmt_error($stmt));
-    showMessage("Registration failed", "Something went wrong. Please try again.", "Back", "Register.html");
+    $err = mysqli_stmt_error($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    showMessage("Registration failed", "Database error: " . $err, "Back", "Register.html");
 }
-
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
 ?>

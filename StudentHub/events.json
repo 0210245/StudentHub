@@ -1,0 +1,74 @@
+[
+  {
+    "id": "EVT001",
+    "name": "Cultural Fest 2026",
+    "date": "2026-09-12",
+    "type": "Cultural",
+    "venue": "Amphitheatre",
+    "coordinator": "Prof. Sharma",
+    "desc": "A celebration of music, dance and art across campus. Open to all students."
+  },
+  {
+    "id": "EVT002",
+    "name": "Hackathon",
+    "date": "2026-09-15",
+    "type": "Technical",
+    "venue": "Lab 301",
+    "coordinator": "Dr. Patel",
+    "desc": "Build something amazing in 24 hours and compete for exciting prizes."
+  },
+  {
+    "id": "EVT003",
+    "name": "Workshop on Web Development",
+    "date": "2026-09-20",
+    "type": "Workshop",
+    "venue": "Seminar Hall A",
+    "coordinator": "Prof. Mehta",
+    "desc": "Hands-on session covering HTML, CSS and JavaScript fundamentals."
+  },
+  {
+    "id": "EVT004",
+    "name": "Tech Quiz 2026",
+    "date": "2026-11-08",
+    "type": "Technical",
+    "venue": "Audi 1",
+    "coordinator": "Prof. Trivedi",
+    "desc": "Test your tech knowledge in a fast-paced team quiz."
+  },
+  {
+    "id": "EVT005",
+    "name": "Annual Sports Meet",
+    "date": "2026-11-22",
+    "type": "Sports",
+    "venue": "Sports Complex",
+    "coordinator": "Coach Rathod",
+    "desc": "Track, field and team games. Show your sporting spirit."
+  },
+  {
+    "id": "EVT006",
+    "name": "Startup Pitch Day",
+    "date": "2026-12-05",
+    "type": "Workshop",
+    "venue": "Incubation Centre",
+    "coordinator": "Prof. Joshi",
+    "desc": "Pitch your idea to mentors and get feedback."
+  },
+  {
+    "id": "EVT007",
+    "name": "Cybersecurity & Ethical Hacking",
+    "date": "2026-12-10",
+    "type": "Technical",
+    "venue": "Lab 102",
+    "coordinator": "Dr. Dave",
+    "desc": "Hands-on session on network security and penetration testing."
+  },
+  {
+    "id": "EVT008",
+    "name": "AI & Machine Learning Seminar",
+    "date": "2026-12-15",
+    "type": "Technical",
+    "venue": "Audi 2",
+    "coordinator": "Dr. Bhatt",
+    "desc": "Keynote lectures on transformers, deep learning, and generative AI."
+  }
+]

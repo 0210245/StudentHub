@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "category": "Academics",
+    "question": "What is the minimum attendance requirement for semester exams?",
+    "answer": "As per university academic regulations, students must maintain at least 80% attendance in both lectures and practical sessions to be eligible to appear for the end-semester examinations."
+  },
+  {
+    "id": 2,
+    "category": "Admissions",
+    "question": "How can I obtain an official transcript or bonafide certificate?",
+    "answer": "Students can apply through the StudentHub portal or submit a written request at the Academic Section along with student ID proof. Standard processing takes 2-3 working days."
+  },
+  {
+    "id": 3,
+    "category": "Events",
+    "question": "Are participation certificates provided for campus hackathons and workshops?",
+    "answer": "Yes, verified e-certificates are issued to all registered attendees through the StudentHub portal within 7 days of event completion."
+  },
+  {
+    "id": 4,
+    "category": "Library",
+    "question": "How many books can a student borrow from the central library at a time?",
+    "answer": "Undergraduate students can borrow up to 4 books for a duration of 14 days. Postgraduate students are entitled to borrow up to 6 books."
+  },
+  {
+    "id": 5,
+    "category": "Placements",
+    "question": "What is the eligibility criterion for campus placement drives?",
+    "answer": "Students with a cumulative CGPA of 6.5 or above without any active backlogs are generally eligible for most visiting corporate placement drives."
+  },
+  {
+    "id": 6,
+    "category": "Hostels",
+    "question": "What are the hostel in-time rules for university residents?",
+    "answer": "Hostel residents must be inside the hostel premises by 9:30 PM on weekdays and 10:00 PM on weekends unless prior night-out permission has been approved by the warden."
+  },
+  {
+    "id": 7,
+    "category": "Exams",
+    "question": "What is the procedure to apply for re-evaluation or re-checking of exam papers?",
+    "answer": "Applications for re-assessment open within 10 days of declaration of results on the university portal upon payment of the nominal scrutiny fee per course."
+  },
+  {
+    "id": 8,
+    "category": "Academics",
+    "question": "How is the SGPA and CGPA calculated in the CBCS system?",
+    "answer": "SGPA is calculated as the sum of (credits × grade points) divided by total credits registered in that semester. CGPA is the cumulative weighted average across all completed semesters."
+  },
+  {
+    "id": 9,
+    "category": "IT & Wi-Fi",
+    "question": "How do I register my laptop and mobile for campus high-speed Wi-Fi?",
+    "answer": "Visit the Computer Centre helpdesk or configure using your student credentials on the captive portal with the 802.1x security certificate."
+  },
+  {
+    "id": 10,
+    "category": "Events",
+    "question": "Can non-students or alumni participate in the annual cultural fest?",
+    "answer": "Certain open events like the celebrity musical night and alumni matches welcome alumni with valid alumni passes. Most inter-college competitions require valid college ID."
+  },
+  {
+    "id": 11,
+    "category": "Scholarships",
+    "question": "Which government and merit scholarships are supported at CHARUSAT?",
+    "answer": "MYSY (Mukhyamantri Yuva Swavalamban Yojana), Digital Gujarat SC/ST/OBC scholarships, and University Merit Scholarships are actively facilitated through the student scholarship desk."
+  },
+  {
+    "id": 12,
+    "category": "Academics",
+    "question": "Can I opt for elective courses from other engineering departments?",
+    "answer": "Yes, open electives and multidisciplinary minor specializations are available starting from semester 4 under the Choice Based Credit System (CBCS)."
+  },
+  {
+    "id": 13,
+    "category": "Sports",
+    "question": "How can I join university sports teams for inter-university competitions?",
+    "answer": "Annual sports trials are held in August and September. Interested students can register with the Sports Officer at the Indoor Sports Complex."
+  },
+  {
+    "id": 14,
+    "category": "Health",
+    "question": "Are emergency medical facilities and first aid available on campus?",
+    "answer": "Yes, the university campus has a 24x7 medical health center with an on-duty medical officer, nurse, and emergency ambulance on call."
+  },
+  {
+    "id": 15,
+    "category": "Admissions",
+    "question": "How do I update my registered mobile number or email ID in college records?",
+    "answer": "Profile updates can be requested through the StudentHub portal profile section or by submitting the contact revision form to the Registrar office."
+  }
+]

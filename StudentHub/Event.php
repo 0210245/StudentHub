@@ -1,28 +1,21 @@
 <?php
-/* =========================================================
-   Event.php
-   Saves an event registration (sent by events.html) into the
-   "registrations" table of the "event" database.
-   Replies in JSON so the page can show a message without reloading.
-   Put this file in the StudentHub/ folder next to events.html.
-   ========================================================= */
+/**
+ * Event.php - Practical 13: Asynchronous Event Registration API
+ * Saves registration to "studenthub.registrations" table and returns JSON response
+ */
+header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . '/db.php';
 
-mysqli_report(MYSQLI_REPORT_OFF);          // return false on errors instead of throwing exceptions
-header("Content-Type: application/json");
-
-/* Sends the JSON answer and stops the script */
 function reply($ok, $message, $already = false) {
     echo json_encode(["ok" => $ok, "message" => $message, "already" => $already]);
     exit;
 }
 
-// 1. Only accept a form submission (POST)
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: events.html");
     exit;
 }
 
-// 2. Read the values
 $name        = trim($_POST["Student_Name"] ?? "");
 $email       = trim($_POST["Student_Email"] ?? "");
 $eventId     = trim($_POST["Event_ID"] ?? "");
@@ -32,43 +25,46 @@ $eventVenue  = trim($_POST["Event_Venue"] ?? "");
 $eventType   = trim($_POST["Event_Type"] ?? "");
 $coordinator = trim($_POST["Event_coordinator"] ?? "");
 
-// 3. Validation (never trust only the browser)
-if ($name === "" || $email === "" || $eventId === "" || $eventName === "") {
-    reply(false, "Please fill in all the fields.");
+if (empty($name) || empty($email) || empty($eventId)) {
+    reply(false, "Please provide your name and institutional email.");
 }
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     reply(false, "Please enter a valid email address.");
 }
-if (!strtotime($eventDate)) {
-    reply(false, "Invalid event date.");
-}
 
-// 4. Connect to the "event" database
-$conn = @mysqli_connect("localhost", "root", "", "event");
+$conn = getDBConnection();
 if (!$conn) {
-    error_log(mysqli_connect_error());
-    reply(false, "Could not connect to the database. Is MySQL running?");
+    reply(false, "Database connection failed. Please ensure MySQL is running on WAMP.");
 }
 
-// 5. Save the registration (prepared statement = safe from SQL injection)
-$stmt = mysqli_prepare($conn,
-    "INSERT INTO registrations
-     (student_name, student_email, event_id, event_name, event_date, event_venue, event_type, coordinator)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-if (!$stmt) {
-    error_log(mysqli_error($conn));
-    reply(false, "Database table not found. Run database.sql in phpMyAdmin first.");
-}
-mysqli_stmt_bind_param($stmt, "ssssssss",
-    $name, $email, $eventId, $eventName, $eventDate, $eventVenue, $eventType, $coordinator);
-
-if (mysqli_stmt_execute($stmt)) {
-    reply(true, "You are registered for " . $eventName . "!");
-}
-// Error 1062 = duplicate (same email + same event, see UNIQUE key in database.sql)
-if (mysqli_stmt_errno($stmt) === 1062) {
+// 1. Check if already registered
+$check = mysqli_prepare($conn, "SELECT id FROM registrations WHERE student_email = ? AND event_id = ? LIMIT 1");
+mysqli_stmt_bind_param($check, "ss", $email, $eventId);
+mysqli_stmt_execute($check);
+mysqli_stmt_store_result($check);
+if (mysqli_stmt_num_rows($check) > 0) {
+    mysqli_stmt_close($check);
+    mysqli_close($conn);
     reply(false, "You are already registered for this event.", true);
 }
-error_log(mysqli_stmt_error($stmt));
-reply(false, "Registration failed. Please try again.");
+mysqli_stmt_close($check);
+
+// 2. Insert registration
+$stmt = mysqli_prepare($conn, 
+    "INSERT INTO registrations (event_id, student_name, student_email) VALUES (?, ?, ?)"
+);
+mysqli_stmt_bind_param($stmt, "sss", $eventId, $name, $email);
+
+if (mysqli_stmt_execute($stmt)) {
+    mysqli_stmt_close($stmt);
+    recordAuditLog($conn, null, 'EVENT_REGISTRATION', "{$name} registered for {$eventId}");
+    mysqli_close($conn);
+    reply(true, "Registration confirmed for " . htmlspecialchars($eventName) . "!");
+} else {
+    $err = mysqli_stmt_error($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    reply(false, "Registration could not be saved: " . $err);
+}
 ?>

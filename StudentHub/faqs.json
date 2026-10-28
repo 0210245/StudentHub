@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "How do I register for an account?",
+    "answer": "Visit the Register page and complete the registration form with your institutional details."
+  },
+  {
+    "id": 2,
+    "question": "How do I participate in campus events?",
+    "answer": "Go to the Events page, click 'Register' on any active event card, and confirm your registration."
+  },
+  {
+    "id": 3,
+    "question": "How do I contact the administrator or coordinator?",
+    "answer": "Use the Contact page form or email us at support@studenthub.com."
+  },
+  {
+    "id": 4,
+    "question": "How do I update my student profile information?",
+    "answer": "Log into your account, visit the Profile page, and click 'Edit Profile' to modify your details."
+  },
+  {
+    "id": 5,
+    "question": "What is the minimum attendance requirement for semester exams?",
+    "answer": "Students must maintain at least 80% attendance in lectures and practical sessions as per university regulations."
+  }
+]

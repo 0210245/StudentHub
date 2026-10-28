@@ -1,22 +1,10 @@
 <?php
-/* =========================================================
-   login.php
-   Receives the form from Login.html (email, password, role),
-   checks it against the "users" table in the studenthub
-   database, and starts a session if the details are correct.
-   Put this file in the StudentHub/ folder next to Login.html.
-   ========================================================= */
+/**
+ * login.php - Practical 10: Secure Authentication, Session Management, RBAC & Timeout
+ */
+session_start();
+require_once __DIR__ . '/db.php';
 
-session_start();   // lets us remember the logged-in user across pages
-
-// Database settings (same database as register.php)
-mysqli_report(MYSQLI_REPORT_OFF);   // return false on DB errors instead of throwing exceptions
-$host = "localhost";
-$dbUser = "root";
-$dbPass = "";
-$dbName = "studenthub";
-
-/* Shows a small styled result page and stops the script */
 function showMessage($title, $message, $linkText, $linkUrl) {
     echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>
           <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -30,62 +18,68 @@ function showMessage($title, $message, $linkText, $linkUrl) {
     exit;
 }
 
-// 1. Only accept a form submission (POST). Otherwise go back to the form.
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: Login.html");
     exit;
 }
 
-// 2. Read the values
 $email    = trim($_POST["email"] ?? "");
 $password = $_POST["password"] ?? "";
 $role     = $_POST["role"] ?? "";
 
-// 3. Basic validation
 if ($email === "" || $password === "" || $role === "") {
-    showMessage("Missing details", "Please fill in all the fields.", "Back", "Login.html");
-}
-if ($role !== "student" && $role !== "faculty" && $role !== "admin") {
-    showMessage("Invalid role", "Please choose a valid role.", "Back", "Login.html");
+    showMessage("Missing details", "Please fill in email, password, and select your role.", "Back", "Login.html");
 }
 
-// 4. Connect to MySQL (@ hides the raw PHP warning; we show our own message)
-$conn = @mysqli_connect($host, $dbUser, $dbPass, $dbName);
+$conn = getDBConnection();
 if (!$conn) {
-    error_log(mysqli_connect_error());
-    showMessage("Server problem", "Could not connect to the database. Is MySQL running?", "Back", "Login.html");
+    showMessage("Server problem", "Could not connect to database. Is MySQL running on WAMP?", "Back", "Login.html");
 }
 
-// 5. Find the user by email AND role (prepared statement = safe from SQL injection)
+// 1. Prepared Statement user lookup
 $stmt = mysqli_prepare($conn,
-    "SELECT id, full_name, email, role, user_id, department, password
-     FROM users WHERE email = ? AND role = ?");
+    "SELECT id, full_name, email, role, user_id, department, password, status
+     FROM users WHERE email = ? AND role = ? LIMIT 1"
+);
 mysqli_stmt_bind_param($stmt, "ss", $email, $role);
 mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-$user = mysqli_fetch_assoc($result);
+$res = mysqli_stmt_get_result($stmt);
+$user = mysqli_fetch_assoc($res);
 mysqli_stmt_close($stmt);
-mysqli_close($conn);
 
-// 6. Compare the typed password with the stored hash.
-//    One generic message for "no such user" and "wrong password",
-//    so nobody can find out which emails are registered.
+// 2. Verify password with password_verify()
 if (!$user || !password_verify($password, $user["password"])) {
+    mysqli_close($conn);
     showMessage("Login failed", "Incorrect email, password or role.", "Try again", "Login.html");
 }
 
-// 7. Success: start a fresh session and store the user's details
-session_regenerate_id(true);   // new session id (prevents session fixation)
-$_SESSION["user_id"]    = $user["id"];
-$_SESSION["full_name"]  = $user["full_name"];
-$_SESSION["email"]      = $user["email"];
-$_SESSION["role"]       = $user["role"];
-$_SESSION["student_id"] = $user["user_id"];
-$_SESSION["department"] = $user["department"];
+if ($user['status'] !== 'active') {
+    mysqli_close($conn);
+    showMessage("Account Inactive", "Your account has been deactivated. Contact an administrator.", "Back", "Login.html");
+}
 
-// 8. Send the user to the right page for their role
+// 3. Regenerate session ID (prevents session fixation)
+session_regenerate_id(true);
+$_SESSION["user_id"]       = $user["id"];
+$_SESSION["full_name"]     = $user["full_name"];
+$_SESSION["email"]         = $user["email"];
+$_SESSION["role"]          = $user["role"];
+$_SESSION["student_id"]    = $user["user_id"];
+$_SESSION["department"]    = $user["department"];
+$_SESSION["last_activity"] = time();
+
+// 4. Update last_login timestamp & record audit
+$upd = mysqli_prepare($conn, "UPDATE users SET last_login = NOW() WHERE id = ?");
+mysqli_stmt_bind_param($upd, "i", $user["id"]);
+mysqli_stmt_execute($upd);
+mysqli_stmt_close($upd);
+
+recordAuditLog($conn, $user["id"], 'USER_LOGIN', "{$user['email']} logged in as {$user['role']}");
+mysqli_close($conn);
+
+// 5. Role-Based Access Control Redirection
 if ($user["role"] === "admin") {
-    header("Location: Admin-Dashboard.html");
+    header("Location: Admin-Dashboard.php");
 } else {
     header("Location: Profile.html");
 }

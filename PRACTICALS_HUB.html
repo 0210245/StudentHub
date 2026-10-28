@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHARUSAT FTE - WDF (ITUE203) Practicals 6 to 14 Hub</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --accent: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 30px 15px 60px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #3730a3, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+    }
+    .header h1 { font-size: 26px; margin-bottom: 8px; }
+    .header p { opacity: 0.9; font-size: 14px; line-height: 1.5; }
+    .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 16px; font-size: 12px; font-weight: 600; margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--primary); }
+    .card-num { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .card h3 { font-size: 17px; margin-bottom: 10px; color: #0f172a; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; flex-grow: 1; }
+    .features { list-style: none; margin-bottom: 16px; font-size: 12px; color: #334155; }
+    .features li { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .features li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .tag-ext { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: #e0e7ff; color: #4338ca; font-weight: 600; display: inline-block; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Charotar University of Science and Technology (CHARUSAT)</h1>
+      <p>Faculty of Technology and Engineering (FTE) &bull; Subject: Web Development Frameworks (ITUE203)</p>
+      <div class="badge">Semester 3rd | Completed Practicals 6 through 14</div>
+    </header>
+
+    <div class="grid">
+      <!-- Practical 6 -->
+      <div class="card">
+        <div class="card-num">Practical 6</div>
+        <h3>Fetch API JSON Rendering, Search &amp; Filter</h3>
+        <span class="tag-ext">LocalStorage Cache &bull; Dependent Filter</span>
+        <p>Renders external <code>events.json</code>, <code>students.json</code>, and <code>faqs.json</code> (15+ records each) using Fetch API with dynamic search, category filtering, sorting, and pagination.</p>
+        <ul class="features">
+          <li>Async/Await Fetch API with try/catch</li>
+          <li>Instant client-side search &amp; filter</li>
+          <li>LocalStorage offline caching</li>
+        </ul>
+        <a href="Practical 6/index.html" class="btn">Open Practical 6 &rarr;</a>
+      </div>
+
+      <!-- Practical 7 -->
+      <div class="card">
+        <div class="card-num">Practical 7</div>
+        <h3>PHP Form Processing &amp; CSV/JSON File Storage</h3>
+        <span class="tag-ext">CSRF Token &bull; CSV Formula Safety &bull; File Viewer</span>
+        <p>Server-side sanitization, regex validation, formula-injection protection, and atomic write locking (LOCK_EX) storing submissions in CSV and JSON formats.</p>
+        <ul class="features">
+          <li>POST handling &amp; CSRF validation</li>
+          <li>Safe append to CSV &amp; JSON</li>
+          <li>Interactive file records viewer</li>
+        </ul>
+        <a href="Practical 7/index.php" class="btn">Open Practical 7 &rarr;</a>
+      </div>
+
+      <!-- Practical 8 -->
+      <div class="card">
+        <div class="card-num">Practical 8</div>
+        <h3>MySQL Schema, ER Model &amp; PDO Connectivity</h3>
+        <span class="tag-ext">3NF Normalization &bull; Stored Procedure &bull; Viva Notes</span>
+        <p>Normalized database schema for StudentHub (8 tables). Database connection tester for both MySQLi and PHP PDO with prepared statements and stored procedure verification.</p>
+        <ul class="features">
+          <li>MySQLi and PDO dual connectivity</li>
+          <li>Calls <code>sp_event_registration_counts</code></li>
+          <li>Complete ER Model &amp; Viva Guide</li>
+        </ul>
+        <a href="Practical 8/Connectivity.php" class="btn">Open Practical 8 &rarr;</a>
+      </div>
+
+      <!-- Practical 9 -->
+      <div class="card">
+        <div class="card-num">Practical 9</div>
+        <h3>Secure Registration with BCrypt Password Hashing</h3>
+        <span class="tag-ext">password_hash() &bull; Duplicate Check &bull; Audit Log</span>
+        <p>Secure registration pipeline preventing duplicate emails and user IDs using prepared statements. Passwords hashed using BCrypt. Automatically records audit entries.</p>
+        <ul class="features">
+          <li>Client &amp; server password meter</li>
+          <li>Prepared statement duplicate check</li>
+          <li>BCrypt password_hash()</li>
+        </ul>
+        <a href="Practical 9/index.php" class="btn">Open Practical 9 &rarr;</a>
+      </div>
+
+      <!-- Practical 10 -->
+      <div class="card">
+        <div class="card-num">Practical 10</div>
+        <h3>Secure Login/Logout, RBAC, Timeout &amp; Tokens</h3>
+        <span class="tag-ext">password_verify() &bull; 15-min Timeout &bull; Remember-Me</span>
+        <p>Authentication module using PHP sessions, <code>session_regenerate_id()</code>, inactivity timeout (15 mins), role-based redirection, and database SHA-256 remember-me tokens.</p>
+        <ul class="features">
+          <li>Role-Based Access Control (Admin vs Student)</li>
+          <li>Session timeout enforcement</li>
+          <li>Secure Remember-Me token auth</li>
+        </ul>
+        <a href="Practical 10/login.php" class="btn">Open Practical 10 &rarr;</a>
+      </div>
+
+      <!-- Practical 11 -->
+      <div class="card">
+        <div class="card-num">Practical 11</div>
+        <h3>Student Management CRUD with Search &amp; Filter</h3>
+        <span class="tag-ext">Soft Delete Toggle &bull; CSV Export &bull; 20+ Records</span>
+        <p>Full CRUD interface for student records with search by name/email/enrollment, department and status filters, modal forms, soft delete, and streaming CSV export.</p>
+        <ul class="features">
+          <li>SELECT, INSERT, UPDATE, DELETE queries</li>
+          <li>Soft delete toggle (active/inactive)</li>
+          <li>Export student list to CSV</li>
+        </ul>
+        <a href="Practical 11/index.php" class="btn">Open Practical 11 &rarr;</a>
+      </div>
+
+      <!-- Practical 12 -->
+      <div class="card">
+        <div class="card-num">Practical 12</div>
+        <h3>Event Management CRUD &amp; Poster File Upload</h3>
+        <span class="tag-ext">Poster Validation &bull; Safe Renaming &bull; Directory Protection</span>
+        <p>Admin event manager with file validation (mime-type check, max 2MB, jpg/png/webp), automatic secure renaming (evt_uniqid.ext), and upload directory protection.</p>
+        <ul class="features">
+          <li>Event CRUD with poster thumbnails</li>
+          <li>Open/Closed status toggling</li>
+          <li>Protected uploads/ directory</li>
+        </ul>
+        <a href="Practical 12/index.php" class="btn">Open Practical 12 &rarr;</a>
+      </div>
+
+      <!-- Practical 13 -->
+      <div class="card">
+        <div class="card-num">Practical 13</div>
+        <h3>PHP REST JSON API &amp; AJAX Fetch CRUD</h3>
+        <span class="tag-ext">HTTP Status Codes &bull; 300ms Debounce &bull; Zero Page Reload</span>
+        <p>RESTful JSON API (<code>api/events.php</code>) returning HTTP status codes (200, 201, 400, 404, 500) consumed by Fetch API without any page reload.</p>
+        <ul class="features">
+          <li>GET, POST, PUT, DELETE REST API</li>
+          <li>Live debounced search (300ms)</li>
+          <li>Toast notifications &amp; loading spinner</li>
+        </ul>
+        <a href="Practical 13/index.html" class="btn">Open Practical 13 &rarr;</a>
+      </div>
+
+      <!-- Practical 14 -->
+      <div class="card">
+        <div class="card-num">Practical 14</div>
+        <h3>Admin Dashboard, Dynamic Menu &amp; Audit Logs</h3>
+        <span class="tag-ext">Chart.js Analytics &bull; User Status Toggle &bull; Security Logs</span>
+        <p>Analytical admin dashboard displaying 4 live metric counters, dynamic role menu, security audit logs table, user status toggle, and monthly registration analytics chart.</p>
+        <ul class="features">
+          <li>Dynamic SQL metric aggregation</li>
+          <li>Interactive Chart.js visualizations</li>
+          <li>Comprehensive security audit log</li>
+        </ul>
+        <a href="Practical 14/index.php" class="btn">Open Practical 14 &rarr;</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
