@@ -1,7 +1,4 @@
 <?php
-/**
- * register.php - Practical 9: Secure Registration with Password Hashing & Duplicate Checks
- */
 ob_start();
 require_once __DIR__ . '/db.php';
 
@@ -39,8 +36,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     showMessage("Invalid email", "Please enter a valid institutional email address.", "Back", "Register.html");
 }
 
-if (!in_array($role, ["student", "faculty"])) {
-    showMessage("Invalid role", "Please choose Student or Faculty.", "Back", "Register.html");
+if (!in_array($role, ["student", "faculty", "admin"])) {
+    showMessage("Invalid role", "Please choose Student, Faculty or Admin.", "Back", "Register.html");
+}
+
+if ($role === "admin" && ($_POST["admin_code"] ?? "") !== "StudentHub@Admin2026") {
+    showMessage("Admin access denied", "The admin access code is incorrect.", "Back", "Register.html");
 }
 
 if (strlen($password) < 8) {

@@ -39,7 +39,11 @@
             <option value="">Select Role</option>
             <option value="student">Student</option>
             <option value="faculty">Faculty</option>
+            <option value="admin">Admin</option>
         </select>
+
+        <label for="adminCode">Admin Access Code (only if registering as Admin)</label>
+        <input type="password" id="adminCode" name="admin_code" placeholder="Leave empty for Student/Faculty">
 
         <label for="userId">Student / Faculty ID</label>
         <input type="text" id="userId" name="user_id" placeholder="Enter your ID" required>
