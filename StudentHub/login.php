@@ -77,12 +77,11 @@ recordAuditLog($conn, $user["id"], 'USER_LOGIN', "{$user['email']} logged in as 
 mysqli_close($conn);
 
 // 5. Role-Based Access Control Redirection (Practical 10)
+ob_end_clean(); // Clear any buffered output before redirect
 if ($user["role"] === "admin") {
     header("Location: Admin-Dashboard.php");
-    echo "<script>window.location.href='Admin-Dashboard.php';</script>";
 } else {
     header("Location: AboutUs.html");
-    echo "<script>window.location.href='AboutUs.html';</script>";
 }
 exit;
 ?>

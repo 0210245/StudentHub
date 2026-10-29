@@ -1,7 +1,9 @@
 <?php
 /**
- * Contact.php - Practical 7: Form Processing with CSV and JSON file storage
+ * Contact.php - Practical 7: Form Processing with CSV, JSON file storage & MySQL
  */
+ob_start();
+require_once __DIR__ . '/db.php';
 $folder = __DIR__ . "/storage";
 $csvFile = $folder . "/contacts.csv";
 $jsonFile = $folder . "/contacts.json";

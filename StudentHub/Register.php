@@ -100,8 +100,8 @@ if (mysqli_stmt_execute($stmt)) {
     mysqli_close($conn);
 
     // Automatically redirect directly to Login page
+    ob_end_clean(); // Clear any buffered output before redirect
     header("Location: Login.html?registered=1");
-    echo "<script>window.location.href='Login.html?registered=1';</script>";
     exit;
 } else {
     $err = mysqli_stmt_error($stmt);
